@@ -6,6 +6,17 @@ package org.code.completion.custom;
 
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
+import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 final class CustomCodeCompletionPanel extends javax.swing.JPanel {
 
@@ -14,7 +25,59 @@ final class CustomCodeCompletionPanel extends javax.swing.JPanel {
 	CustomCodeCompletionPanel(CustomCodeCompletionOptionsPanelController controller) {
 		this.controller = controller;
 		initComponents();
-		// TODO listen to changes in form fields and call controller.changed()
+
+		// Load items into table.
+		Preferences pref = Preferences.userNodeForPackage(CustomCodeCompletionPanel.class);
+		refreshDictionary(pref.get("dictionaryFilename", ""));
+
+		jTable1.setComponentPopupMenu(jPopupMenu1);
+	}
+
+	private void refreshDictionary(String filename) {
+		try {
+			DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+			domFactory.setNamespaceAware(true);
+			DocumentBuilder builder = domFactory.newDocumentBuilder();
+			Document doc = builder.parse(filename);
+
+			XPathFactory factory = XPathFactory.newInstance();
+			XPath xpath = factory.newXPath();
+			XPathExpression expr = xpath.compile("//frase");
+
+			Object result = expr.evaluate(doc, XPathConstants.NODESET);
+			NodeList nodes = (NodeList)result;
+
+			// Remove previously loaded rows.
+			DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+			model.getDataVector().removeAllElements();
+
+			for (int i = 0; i < nodes.getLength(); i++) {
+				Node node = nodes.item(i);
+				String frase = nodes.item(i).getTextContent();
+
+				NamedNodeMap attributes = node.getAttributes();
+				Node after = attributes.getNamedItem("after");
+				Node caret = attributes.getNamedItem("caret");
+				int offset = 0;
+				String afterContents = "";
+
+				if (caret != null) {
+					offset = Integer.parseInt(caret.getNodeValue());
+				}
+				else if (after != null) {
+					afterContents = after.getNodeValue();
+					offset = frase.indexOf(afterContents) + 1;
+				}
+				else {
+					offset = frase.length();
+				}
+
+				model.addRow(new Object[] { frase, offset, afterContents });
+			}
+		}
+		catch (Exception ex) {
+
+		}
 	}
 
 	/** This method is called from within the constructor to
@@ -25,13 +88,21 @@ final class CustomCodeCompletionPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
-        jCheckBox1.setSelected(true);
-        org.openide.awt.Mnemonics.setLocalizedText(jCheckBox1, org.openide.util.NbBundle.getMessage(CustomCodeCompletionPanel.class, "CustomCodeCompletionPanel.jCheckBox1.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jMenuItem1, org.openide.util.NbBundle.getMessage(CustomCodeCompletionPanel.class, "CustomCodeCompletionPanel.jMenuItem1.text")); // NOI18N
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
 
         jTextField1.setText(org.openide.util.NbBundle.getMessage(CustomCodeCompletionPanel.class, "CustomCodeCompletionPanel.jTextField1.text")); // NOI18N
 
@@ -44,33 +115,54 @@ final class CustomCodeCompletionPanel extends javax.swing.JPanel {
             }
         });
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Frase", "Caret", "After"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(org.openide.util.NbBundle.getMessage(CustomCodeCompletionPanel.class, "CustomCodeCompletionPanel.jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(CustomCodeCompletionPanel.class, "CustomCodeCompletionPanel.jTable1.columnModel.title1")); // NOI18N
+        jTable1.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(CustomCodeCompletionPanel.class, "CustomCodeCompletionPanel.jTable1.columnModel.title2_1")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(32, 32, 32)
+                        .addGap(18, 18, 18)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jCheckBox1)
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -78,17 +170,30 @@ final class CustomCodeCompletionPanel extends javax.swing.JPanel {
 		final JFileChooser fc = new JFileChooser();
 
 		if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-			jTextField1.setText(fc.getSelectedFile().getAbsolutePath());
+
+			// Save filename.
+			String filename = fc.getSelectedFile().getAbsolutePath();
+			jTextField1.setText(filename);
+
+			// Load items into table.
+			refreshDictionary(filename);
 		}
 	}//GEN-LAST:event_jButton1ActionPerformed
 
+	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+		int[] rows = jTable1.getSelectedRows();
+		DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+
+		for (int i : rows) {
+			model.removeRow(i);
+		}
+	}//GEN-LAST:event_jMenuItem1ActionPerformed
+
 	void load() {
-		jCheckBox1.setSelected(Preferences.userNodeForPackage(CustomCodeCompletionPanel.class).getBoolean("displayDuringTyping", true));
 		jTextField1.setText(Preferences.userNodeForPackage(CustomCodeCompletionPanel.class).get("dictionaryFilename", ""));
 	}
 
 	void store() {
-		Preferences.userNodeForPackage(CustomCodeCompletionPanel.class).putBoolean("displayDuringTyping", jCheckBox1.isSelected());
 		Preferences.userNodeForPackage(CustomCodeCompletionPanel.class).put("dictionaryFilename", jTextField1.getText());
 	}
 
@@ -98,8 +203,11 @@ final class CustomCodeCompletionPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

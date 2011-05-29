@@ -35,14 +35,14 @@ public class CustomCompletion {
 
 		XPathFactory factory = XPathFactory.newInstance();
 		XPath xpath = factory.newXPath();
-		XPathExpression expr = xpath.compile("//fraze");
+		XPathExpression expr = xpath.compile("//frase");
 
 		Object result = expr.evaluate(doc, XPathConstants.NODESET);
 		NodeList nodes = (NodeList)result;
 
 		for (int i = 0; i < nodes.getLength(); i++) {
 			Node node = nodes.item(i);
-			String fraze = nodes.item(i).getTextContent();
+			String frase = nodes.item(i).getTextContent();
 
 			NamedNodeMap attributes = node.getAttributes();
 			Node after = attributes.getNamedItem("after");
@@ -53,13 +53,13 @@ public class CustomCompletion {
 				offset = Integer.parseInt(caret.getNodeValue());
 			}
 			else if (after != null) {
-				offset = fraze.indexOf(after.getNodeValue()) + 1;
+				offset = frase.indexOf(after.getNodeValue()) + 1;
 			}
 			else {
-				offset = fraze.length();
+				offset = frase.length();
 			}
 
-			items.add(new Frase(fraze, offset));
+			items.add(new Frase(frase, offset));
 		}
 	}
 
