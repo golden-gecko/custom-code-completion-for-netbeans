@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+	<!-- Caret will be positioned after first occurence of left bracket-->
+	<fraze after="(">absolute()</fraze>
+	
+	<!-- Caret will be positioned after 8 chart -->
+	<fraze caret="8">average()</fraze>
+
+	<!-- Caret will be positioned at the end of frase -->
+	<fraze>Java</fraze>
+
+</dictionary>
