@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dictionary>
+
+	<!-- OPT functions -->
+	<frase after="(">absolute()</frase>
+	<frase after="(">autoLink()</frase>
+	<frase after="(">average()</frase>
+	<frase after="(">capitalize()</frase>
+	<frase after="(">contains()</frase>
+	<frase after="(">containsKey()</frase>
+	<frase after="(">count()</frase>
+	<frase after="(">countChars()</frase>
+	<frase after="(">countSubstring()</frase>
+	<frase after="(">countWords()</frase>
+	<frase after="(">cycle()</frase>
+	<frase after="(">date()</frase>
+	<frase after="(">entity()</frase>
+	<frase after="(">firstof()</frase>
+	<frase after="(">indent()</frase>
+	<frase after="(">isImage()</frase>
+	<frase after="(">isUrl()</frase>
+	<frase after="(">lower()</frase>
+	<frase after="(">money()</frase>
+	<frase after="(">nl2br()</frase>
+	<frase after="(">number()</frase>
+	<frase after="(">pad()</frase>
+	<frase after="(">pluralize()</frase>
+	<frase after="(">position()</frase>
+	<frase after="(">range()</frase>
+	<frase after="(">regexReplace()</frase>
+	<frase after="(">replace()</frase>
+	<frase after="(">scalar()</frase>
+	<frase after="(">spacify()</frase>
+	<frase after="(">stddev()</frase>
+	<frase after="(">strip()</frase>
+	<frase after="(">stripTags()</frase>
+	<frase after="(">sum()</frase>
+	<frase after="(">truncate()</frase>
+	<frase after="(">upper()</frase>
+	<frase after="(">wordWrap()</frase>
+
+	<!-- OPT attributes -->
+	<frase caret="22">opt:attributes-build=""</frase>
+	<frase caret="23">opt:attributes-ignore=""</frase>
+	<frase caret="13">opt:capture=""</frase>
+	<frase caret="13">opt:content=""</frase>
+	<frase>opt:dynamic="yes"</frase>
+	<frase caret="8">opt:if=""</frase>
+	<frase caret="8">opt:on=""</frase>
+	<frase caret="13">opt:section=""</frase>
+	<frase caret="14">opt:selector=""</frase>
+	<frase>opt:single="yes"</frase>
+	<frase caret="9">opt:use=""</frase>
+
+	<!-- OPT attributes -->
+	<frase caret="12">datasource=""</frase>
+	<frase caret="6">name=""</frase>
+	<frase caret="6">test=""</frase>
+	<frase caret="7">value=""</frase>
+
+	<!-- OPT instructions -->
+	<frase caret="21"><![CDATA[<opt:attribute name="" value="" />]]></frase>
+	<frase caret="17"><![CDATA[<opt:block from="">]]></frase>
+	<frase caret="17"><![CDATA[<opt:capture as="">]]></frase>
+	<frase><![CDATA[<opt:component>]]></frase>
+	<frase caret="19"><![CDATA[<opt:dtd template="" />]]></frase>
+	<frase><![CDATA[<opt:dynamic>]]></frase>
+	<frase caret="18"><![CDATA[<opt:extend file="">]]></frase>
+	<frase caret="45"><![CDATA[<opt:for begin="@i is 0" while="@i lt count()" iterate="++@i">]]></frase>
+	<frase caret="20"><![CDATA[<opt:foreach array="" index="name" value="value">]]></frase>
+	<frase caret="16"><![CDATA[<opt:grid name="">]]></frase>
+	<frase caret="14"><![CDATA[<opt:if test="">]]></frase>
+	<frase caret="18"><![CDATA[<opt:include file="" />]]></frase>
+	<frase caret="21"><![CDATA[<opt:insert snippet="">]]></frase>
+	<frase><![CDATA[<opt:literal type="comment_cdata">]]></frase>
+	<frase><![CDATA[<opt:prolog />]]></frase>
+	<frase caret="16"><![CDATA[<opt:put value="" />]]></frase>
+	<frase caret="19"><![CDATA[<opt:repeat times="">]]></frase>
+	<frase caret="19"><![CDATA[<opt:root include="">]]></frase>
+	<frase caret="19"><![CDATA[<opt:section name="">]]></frase>
+	<frase caret="20"><![CDATA[<opt:selector name="">]]></frase>
+	<frase><![CDATA[<opt:separator>]]></frase>
+	<frase caret="16"><![CDATA[<opt:show name="">]]></frase>
+	<frase caret="19"><![CDATA[<opt:snippet name="">]]></frase>
+	<frase caret="16"><![CDATA[<opt:tag name="">]]></frase>
+	<frase caret="17"><![CDATA[<opt:tree name="">]]></frase>
+
+</dictionary>
