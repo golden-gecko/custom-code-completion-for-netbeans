@@ -2,8 +2,6 @@ package org.code.completion.custom;
 
 /**
  * Fraze
- *
- * @author Wojciech Holisz <wojciech.holisz@gmail.com>
  */
 public class Frase {
 	public String text;
