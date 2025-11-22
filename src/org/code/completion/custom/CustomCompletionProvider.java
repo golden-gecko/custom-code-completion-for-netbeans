@@ -17,8 +17,6 @@ import org.netbeans.spi.editor.completion.support.AsyncCompletionTask;
  * OptCompletionProvider
  *
  * Implemetancja interfejsu CompletionProvider służącego do generowania podpowiedzi.
- *
- * @author Wojciech Holisz <wojciech.holisz@gmail.com>
  */
 public class CustomCompletionProvider implements CompletionProvider {
 
