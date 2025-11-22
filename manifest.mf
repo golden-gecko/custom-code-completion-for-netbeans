@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.code.completion.custom
+OpenIDE-Module-Layer: org/code/completion/custom/layer.xml
+OpenIDE-Module-Localizing-Bundle: org/code/completion/custom/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
