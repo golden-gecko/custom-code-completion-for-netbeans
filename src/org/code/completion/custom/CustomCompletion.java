@@ -17,11 +17,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-/**
- * CustomCompletion
- *
- * @author Wojciech Holisz <wojciech.holisz@gmail.com>
- */
 public class CustomCompletion {
 
 	public CustomCompletion() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
