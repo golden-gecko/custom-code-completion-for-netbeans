@@ -17,8 +17,6 @@ import org.netbeans.spi.editor.completion.support.CompletionUtilities;
  *
  * Przechowuje jedną podpowiedź. Odpowiada m.in. za wstawienie do edytora kodu
  * odpowiedniej frazy, w przypadku wybrania jej przez użytkownika.
- *
- * @author Wojciech Holisz <wojciech.holisz@gmail.com>
  */
 public class CustomCompletionItem implements CompletionItem {
 
